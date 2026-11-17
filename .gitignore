@@ -14,15 +14,13 @@ design-mockup/screenshots/
 # 本地设计工具资源
 .agents/
 
-# 内部开发资料、测试与设计稿，不进入面向用户的公开仓库
+# 内部开发资料与设计稿，不进入公开仓库
 /开发规划_V1.md
 /项目描述.txt
 /项目进度_V2.md
 /DESIGN.md
 /UI_AUDIT.md
 /design-mockup/
-/tests/
-/conftest.py
 /browser-extension/.github/
 /browser-extension/scripts/
 /browser-extension/docs-panel-console.png

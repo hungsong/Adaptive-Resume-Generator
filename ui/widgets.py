@@ -42,30 +42,33 @@ class LogPanel(QPlainTextEdit):
 
 
 class NoWheelSpinBox(QSpinBox):
-    """未获得焦点时不响应滚轮，避免滚动页面误改分数与阈值。"""
+    """始终忽略滚轮，只接受按钮、键盘或手动输入，避免滚动页面误改数值。"""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setToolTip("滚轮不会修改此数值；请点击数字输入，或使用上下按钮和方向键。")
 
     def wheelEvent(self, event):
-        if self.hasFocus():
-            super().wheelEvent(event)
-        else:
-            event.ignore()
+        event.ignore()
 
 
 class NoWheelDoubleSpinBox(QDoubleSpinBox):
     """同 NoWheelSpinBox，适用于小数设置。"""
 
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setToolTip("滚轮不会修改此数值；请点击数字输入，或使用上下按钮和方向键。")
+
     def wheelEvent(self, event):
-        if self.hasFocus():
-            super().wheelEvent(event)
-        else:
-            event.ignore()
+        event.ignore()
 
 
 class NoWheelComboBox(QComboBox):
-    """未聚焦时不响应滚轮，避免滚动页面时误切换选项。"""
+    """始终忽略滚轮，只接受点击展开、键盘或手动选择。"""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setToolTip("滚轮不会切换选项；请点击展开后用鼠标或键盘选择。")
 
     def wheelEvent(self, event):
-        if self.hasFocus():
-            super().wheelEvent(event)
-        else:
-            event.ignore()
+        event.ignore()

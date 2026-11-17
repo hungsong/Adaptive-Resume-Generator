@@ -6,12 +6,13 @@ from pathlib import Path
 
 from PyQt5.QtCore import QStandardPaths
 from PyQt5.QtWidgets import (
-    QComboBox, QDialog, QFileDialog, QHBoxLayout, QLabel, QLineEdit,
+    QDialog, QFileDialog, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QVBoxLayout,
 )
 
 from core.export_resumes import FORMAT_LABELS
 from ui.motion import fade_in
+from ui.widgets import NoWheelComboBox
 
 
 class ExportDialog(QDialog):
@@ -44,7 +45,7 @@ class ExportDialog(QDialog):
 
         row = QHBoxLayout()
         row.addWidget(QLabel("文件格式"))
-        self.format = QComboBox()
+        self.format = NoWheelComboBox()
         for key, label in FORMAT_LABELS.items():
             self.format.addItem(label, key)
         row.addWidget(self.format, 1)

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import (
-    QButtonGroup, QComboBox, QFrame, QGridLayout, QHBoxLayout, QLabel,
+    QButtonGroup, QFrame, QGridLayout, QHBoxLayout, QLabel,
     QLineEdit, QMessageBox, QPushButton, QScrollArea,
     QVBoxLayout, QWidget,
 )
@@ -16,6 +16,7 @@ from ui.browser import detect_browsers, save_browser_choice
 from ui.components import (
     Card, Divider, ElidedLabel, PageHeader, primary_button, secondary_button,
 )
+from ui.widgets import NoWheelComboBox
 from ui.icons import themed_icon
 from ui.worker import Worker
 
@@ -206,7 +207,7 @@ class SettingsPage(QWidget):
         )
         layout.addLayout(head)
         layout.addWidget(self._field_label("用于打开 BOSS 的浏览器"))
-        self.browser_combo = QComboBox()
+        self.browser_combo = NoWheelComboBox()
         layout.addWidget(self.browser_combo)
         self.browser_hint = QLabel("选择后会记住，下次打开岗位搜索页继续使用。")
         self.browser_hint.setObjectName("fieldHelp")

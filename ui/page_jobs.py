@@ -8,7 +8,7 @@ from urllib.parse import quote
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
-    QAbstractItemView, QCheckBox, QComboBox, QDialog, QDialogButtonBox,
+    QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox,
     QFileDialog, QFormLayout, QFrame, QGridLayout, QGroupBox, QHBoxLayout,
     QHeaderView, QLabel,
     QLineEdit, QMessageBox, QPlainTextEdit, QProgressBar, QPushButton, QScrollArea,
@@ -23,7 +23,7 @@ from ui.components import (
     secondary_button,
 )
 from ui.icons import themed_icon
-from ui.widgets import NoWheelSpinBox
+from ui.widgets import NoWheelComboBox, NoWheelSpinBox
 from ui.worker import Worker, WorkerKeeper
 
 
@@ -337,7 +337,7 @@ class JobPoolPage(QWidget):
         strength_box = QGroupBox("生成时的表达强弱")
         strength_layout = QVBoxLayout(strength_box)
         strength_layout.setSpacing(7)
-        self._criteria_widgets["rewrite_strength"] = QComboBox()
+        self._criteria_widgets["rewrite_strength"] = NoWheelComboBox()
         for key in ("precise", "standard", "tactful"):
             self._criteria_widgets["rewrite_strength"].addItem(STRENGTH_LABELS[key], key)
         self._criteria_widgets["rewrite_strength"].setToolTip(
@@ -521,7 +521,7 @@ class JobPoolPage(QWidget):
         strength_title = QLabel("表达强度")
         strength_title.setObjectName("sectionTitle")
         strength_layout.addWidget(strength_title)
-        self._criteria_widgets["rewrite_strength"] = QComboBox()
+        self._criteria_widgets["rewrite_strength"] = NoWheelComboBox()
         for key in ("precise", "standard", "tactful"):
             self._criteria_widgets["rewrite_strength"].addItem(STRENGTH_LABELS[key], key)
         self._criteria_widgets["rewrite_strength"].setToolTip(
@@ -575,7 +575,7 @@ class JobPoolPage(QWidget):
         self.search.setClearButtonEnabled(True)
         self.search.textChanged.connect(self._fill_table)
         controls.addWidget(self.search, 1)
-        self.filter = QComboBox()
+        self.filter = NoWheelComboBox()
         for label, value in (
             ("全部", "all"), ("待评分", "unscored"), ("推荐", "recommended"),
             ("复核", "review"), ("淘汰", "rejected"), ("详情不足", "needs_detail"),
@@ -584,7 +584,7 @@ class JobPoolPage(QWidget):
             self.filter.addItem(label, value)
         self.filter.currentIndexChanged.connect(self._fill_table)
         controls.addWidget(self.filter)
-        self.sort = QComboBox()
+        self.sort = NoWheelComboBox()
         for label, value in (
             ("最新采集", "recent"), ("意向分最高", "score"),
             ("薪资最高", "salary"), ("公司/岗位", "name"),
@@ -688,7 +688,7 @@ class JobPoolPage(QWidget):
         control_stack.addWidget(self.search)
         control_row = QHBoxLayout()
         control_row.setSpacing(6)
-        self.filter = QComboBox()
+        self.filter = NoWheelComboBox()
         for label, value in (
             ("全部", "all"), ("待评分", "unscored"), ("推荐", "recommended"),
             ("复核", "review"), ("淘汰", "rejected"), ("详情不足", "needs_detail"),
@@ -698,7 +698,7 @@ class JobPoolPage(QWidget):
         self.filter.setMaximumWidth(96)
         self.filter.currentIndexChanged.connect(self._fill_table)
         control_row.addWidget(self.filter, 1)
-        self.sort = QComboBox()
+        self.sort = NoWheelComboBox()
         for label, value in (
             ("最新采集", "recent"), ("意向分最高", "score"),
             ("薪资最高", "salary"), ("公司/岗位", "name"),

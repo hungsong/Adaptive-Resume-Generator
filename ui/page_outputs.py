@@ -7,7 +7,7 @@ import datetime as _dt
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
-    QApplication, QComboBox, QFrame, QHBoxLayout, QLabel, QLineEdit,
+    QApplication, QFrame, QHBoxLayout, QLabel, QLineEdit,
     QListWidget, QListWidgetItem, QMessageBox, QPlainTextEdit, QPushButton,
     QShortcut, QSplitter, QVBoxLayout, QWidget,
 )
@@ -17,6 +17,7 @@ from ui import browser
 from ui.components import Card, ChipLabel, Divider, PageHeader, secondary_button
 from ui.icons import themed_icon
 from ui.export_dialog import ExportDialog
+from ui.widgets import NoWheelComboBox
 
 
 class OutputsPage(QWidget):
@@ -76,14 +77,14 @@ class OutputsPage(QWidget):
         self.search.textChanged.connect(self._apply_filters)
         left_layout.addWidget(self.search)
         filter_row = QHBoxLayout()
-        self.filter = QComboBox()
+        self.filter = NoWheelComboBox()
         for label, value in (
             ("全部简历", "all"), ("人工修改", "manual"), ("有校验提醒", "review"),
         ):
             self.filter.addItem(label, value)
         self.filter.currentIndexChanged.connect(self._apply_filters)
         filter_row.addWidget(self.filter, 1)
-        self.sort = QComboBox()
+        self.sort = NoWheelComboBox()
         for label, value in (
             ("最新生成", "recent"), ("意向分最高", "score"),
             ("公司名称", "company"), ("薪资最高", "salary"),
@@ -233,14 +234,14 @@ class OutputsPage(QWidget):
         body.addWidget(self.search)
         filter_row = QHBoxLayout()
         filter_row.setSpacing(5)
-        self.filter = QComboBox()
+        self.filter = NoWheelComboBox()
         for label, value in (
             ("全部简历", "all"), ("人工修改", "manual"), ("有校验提醒", "review"),
         ):
             self.filter.addItem(label, value)
         self.filter.currentIndexChanged.connect(self._apply_filters)
         filter_row.addWidget(self.filter, 1)
-        self.sort = QComboBox()
+        self.sort = NoWheelComboBox()
         for label, value in (
             ("最新生成", "recent"), ("意向分最高", "score"),
             ("公司名称", "company"), ("薪资最高", "salary"),

@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 
 from PyQt5.QtCore import QObject, pyqtSignal
-from PyQt5.QtWidgets import QDoubleSpinBox, QPlainTextEdit, QSpinBox
+from PyQt5.QtWidgets import QComboBox, QDoubleSpinBox, QPlainTextEdit, QSpinBox
 
 
 class LogEmitter(QObject):
@@ -53,6 +53,16 @@ class NoWheelSpinBox(QSpinBox):
 
 class NoWheelDoubleSpinBox(QDoubleSpinBox):
     """同 NoWheelSpinBox，适用于小数设置。"""
+
+    def wheelEvent(self, event):
+        if self.hasFocus():
+            super().wheelEvent(event)
+        else:
+            event.ignore()
+
+
+class NoWheelComboBox(QComboBox):
+    """未聚焦时不响应滚轮，避免滚动页面时误切换选项。"""
 
     def wheelEvent(self, event):
         if self.hasFocus():

@@ -43,7 +43,7 @@ jobs:
           $extension = Join-Path $package "browser-extension"
           New-Item -ItemType Directory -Path $extension -Force | Out-Null
           Copy-Item -LiteralPath "browser-extension/manifest.json", "browser-extension/background.js", "browser-extension/content.js", "browser-extension/README.md" -Destination $extension -Force
-          Copy-Item -LiteralPath "README.md", "用户教程.md", "使用说明.md" -Destination $package -Force
+          Copy-Item -LiteralPath "README.md", "用户教程.md", "使用说明.md", "LICENSE" -Destination $package -Force
           $zip = Join-Path $PWD "package/自适应简历生成器-Windows.zip"
           if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force }
           Compress-Archive -Path (Join-Path $package "*") -DestinationPath $zip -CompressionLevel Optimal

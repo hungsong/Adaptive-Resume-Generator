@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "BOSS-Auto-Job-Extension",
+  "version": "2.0.14",
+  "description": "按岗位性质、目标方向和筛选规则批量扫描 BOSS 职位，并输出收藏与复核记录。",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.zhipin.com/*",
+    "https://api.deepseek.com/*",
+    "https://api.toporeduce.cn/*",
+    "http://127.0.0.1/*",
+    "http://localhost/*",
+    "https://api.github.com/*",
+    "https://raw.githubusercontent.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.zhipin.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

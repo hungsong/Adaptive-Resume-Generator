@@ -1,0 +1,63 @@
+name: Build Windows Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt "pyinstaller>=6.0,<7"
+
+      - name: Compile check
+        run: python -m compileall -q main.py core ui
+
+      - name: Build desktop application
+        run: python -m PyInstaller build.spec --noconfirm --clean
+
+      - name: Assemble Windows package
+        shell: pwsh
+        run: |
+          $package = Join-Path $PWD "package/自适应简历生成器-Windows"
+          New-Item -ItemType Directory -Path $package -Force | Out-Null
+          Copy-Item -LiteralPath "dist/自适应简历生成器" -Destination $package -Recurse -Force
+          $extension = Join-Path $package "browser-extension"
+          New-Item -ItemType Directory -Path $extension -Force | Out-Null
+          Copy-Item -LiteralPath "browser-extension/manifest.json", "browser-extension/background.js", "browser-extension/content.js", "browser-extension/README.md" -Destination $extension -Force
+          Copy-Item -LiteralPath "README.md", "用户教程.md", "使用说明.md" -Destination $package -Force
+          $zip = Join-Path $PWD "package/自适应简历生成器-Windows.zip"
+          if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force }
+          Compress-Archive -Path (Join-Path $package "*") -DestinationPath $zip -CompressionLevel Optimal
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 自适应简历生成器-Windows
+          path: package/*.zip
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: package/*.zip
+          generate_release_notes: true

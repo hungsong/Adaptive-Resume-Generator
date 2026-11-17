@@ -1,0 +1,40 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# 本地私密数据：API Key、主履历、生成的简历、日志
+config.json
+data/
+logs/
+
+# 设计验收截图可能包含真实履历、岗位和浏览器界面，不进入开源仓库
+design-mockup/screenshots/
+
+# 本地设计工具资源
+.agents/
+
+# 内部开发资料、测试与设计稿，不进入面向用户的公开仓库
+/开发规划_V1.md
+/项目描述.txt
+/项目进度_V2.md
+/DESIGN.md
+/UI_AUDIT.md
+/design-mockup/
+/tests/
+/conftest.py
+/browser-extension/.github/
+/browser-extension/scripts/
+/browser-extension/docs-panel-console.png
+/browser-extension/ui-mockups.html
+/browser-extension/.gitignore
+
+# Windows 调试残留与系统文件
+/$null
+Thumbs.db
+Desktop.ini
+
+# 打包产物
+build/
+dist/
+*.egg-info/
